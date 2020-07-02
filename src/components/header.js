@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from "react-router-dom";
 
 import clsx from 'clsx';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
@@ -83,12 +84,14 @@ class HeaderComponent extends Component {
                     <Divider />
                     <List>
                         {this.props.pageConfig.map((page, index) => (
-                            <ListItem button key={index}>
-                                <ListItemIcon>
-                                    <Icon>{page.icon}</Icon>
-                                </ListItemIcon>
-                                <ListItemText primary={page.title} />
-                            </ListItem>
+                            <NavLink to={page.path} key={index} style={{ textDecoration: "none", color: 'black' }}>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <Icon>{page.icon}</Icon>
+                                    </ListItemIcon>
+                                    <ListItemText primary={page.title} />
+                                </ListItem>
+                            </NavLink>
                         ))}
                     </List>
                 </Drawer>
@@ -139,7 +142,7 @@ const styles = theme => ({
     drawerHeader: {
         display: 'flex',
         alignItems: 'center',
-        padding: theme.spacing(0, 1),
+        // padding: theme.spacing(3),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',

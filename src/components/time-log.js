@@ -62,67 +62,65 @@ class TimeLogComponent extends Component {
 
         return (
             <div>
-                <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                        <Paper elevation={3}>
-                            <form className={classes.timelogWrapper} onSubmit={this.onSave}>
-                                <TextField id="standard-basic" label="Name" value={task.name} className={classes.input}
-                                    onChange={this.handleChange} name="name" />
-                                <TextField id="standard-basic" label="Description" value={task.description} className={classes.input}
-                                    onChange={this.handleChange} name="description" />
-                                <Fragment>
-                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                        <KeyboardTimePicker
-                                            margin="normal"
-                                            id="time-picker"
-                                            label="Time Duration"
-                                            className={classes.dateTime}
-                                            value={this.state.taskDuration}
-                                            onChange={this.handleChangeTime}
-                                            KeyboardButtonProps={{
-                                                'aria-label': 'change time',
-                                            }}
-                                        />
-                                        <KeyboardDatePicker
-                                            margin="normal"
-                                            label="Date"
-                                            format="MM/dd/yyyy"
-                                            className={classes.dateTime}
-                                            value={task.date}
-                                            onChange={this.handleChangeDate}
-                                            KeyboardButtonProps={{
-                                                'aria-label': 'change date',
-                                            }}
-                                        />
-                                    </MuiPickersUtilsProvider>
-                                </Fragment>
-                                <Button variant="contained" type="submit" color="primary" className={classes.btn}>
-                                    Save
-                                </Button>
-                            </form>
-                        </Paper>
-                        <Paper elevation={3}>
-                            {
-                                taskList.map((task, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <span>{task.name}</span>
-                                            <span>{task.description}</span>
-                                            <span>{task.duration}</span>
-                                            <span>{task.date}</span>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </Paper>
-                    </Grid>
+                <Grid item xs={12}>
+                    <Paper elevation={3}>
+                        <form className={classes.timelogWrapper} onSubmit={this.onSave}>
+                            <TextField id="standard-basic" label="Name" value={task.name} className={classes.input}
+                                onChange={this.handleChange} name="name" />
+                            <TextField id="standard-basic" label="Description" value={task.description} className={classes.input}
+                                onChange={this.handleChange} name="description" />
+                            <Fragment>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardTimePicker
+                                        margin="normal"
+                                        id="time-picker"
+                                        label="Time Duration"
+                                        className={classes.dateTime}
+                                        value={this.state.taskDuration}
+                                        onChange={this.handleChangeTime}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change time',
+                                        }}
+                                    />
+                                    <KeyboardDatePicker
+                                        margin="normal"
+                                        label="Date"
+                                        format="MM/dd/yyyy"
+                                        className={classes.dateTime}
+                                        value={task.date}
+                                        onChange={this.handleChangeDate}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Fragment>
+                            <Button variant="contained" type="submit" color="primary" className={classes.btn}>
+                                Save
+                            </Button>
+                        </form>
+                    </Paper>
+                    <Paper elevation={3}>
+                        {
+                            taskList.map((task, index) => {
+                                return (
+                                    <div key={index}>
+                                        <span>{task.name}</span>
+                                        <span>{task.description}</span>
+                                        <span>{task.duration}</span>
+                                        <span>{task.date}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </Paper>
                 </Grid>
-            </div>
+            </div >
         );
     }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
     timelogWrapper: {
         padding: "15px 0 15px 0",
         textAlign: "center"
