@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
 
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -138,8 +138,9 @@ const styles = (theme) => ({
 });
 
 function mapStateToProps(state) {
+    console.log(state)
     return {
-        taskList: state.taskReducer
+        taskList: state.taskReducer.tasks
     }
 }
 

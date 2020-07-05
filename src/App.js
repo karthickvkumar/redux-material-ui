@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import configureStore from './redux/store/configure-store';
 import LoginPage from './pages/login';
-import HomePage from './pages/home';
 import './App.css';
+
+const HomePage = lazy(() => import('./pages/home'));
 
 const store = configureStore();
 
@@ -16,7 +17,14 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/" exact component={LoginPage} />
-            <Route path="/home" exact component={HomePage} />
+            <Route path="/home" exact render={() => {
+              return (
+                <Suspense fallback={<h2>Loading...</h2>}>
+                  <HomePage></HomePage>
+                </Suspense>
+              )
+            }
+            } />
           </Switch>
         </Router>
       </Provider>

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import HeaderComponent from '../components/header';
-import TimeLogComponent from '../components/time-log';
-import ProjectsPage from '../pages/projects';
-import SettingsPage from '../pages/settings';
+const HeaderComponent = lazy(() => import('../components/header'));
+const TimeLogComponent = lazy(() => import('../components/time-log'));
+const ProjectsPage = lazy(() => import('../pages/projects'));
+const SettingsPage = lazy(() => import('../pages/settings'));
 
 class HomePage extends Component {
     constructor(props) {
@@ -34,13 +34,15 @@ class HomePage extends Component {
         return (
             <div>
                 <Router>
-                    <HeaderComponent {...this.state}>
-                        <Switch>
-                            <Route path="/home" exact component={TimeLogComponent} />
-                            <Route path="/home/projects" exact component={ProjectsPage} />
-                            <Route path="/home/settings" exact component={SettingsPage} />
-                        </Switch>
-                    </HeaderComponent>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <HeaderComponent {...this.state}>
+                            <Switch>
+                                <Route path="/home" exact component={TimeLogComponent} />
+                                <Route path="/home/projects" component={ProjectsPage} />
+                                <Route path="/home/settings" component={SettingsPage} />
+                            </Switch>
+                        </HeaderComponent>
+                    </Suspense>
                 </Router>
             </div>
         );
