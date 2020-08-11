@@ -1,37 +1,46 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import * as listProducts from '../redux/actions/task-action';
 
 class ProjectsPage extends Component {
-    componentDidMount() {
-        this.props.actions.listProducts().then((product) => {
-            console.log(this.props.products)
-        })
+    async firstAPI() {
+        const url = "https://reqres.in/api/users?page=2";
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data) {
+            const secondAPI = await this.secondAPI();
+            if (secondAPI) {
+                const user = {
+                    "name": "morpheus",
+                    "job": "leader"
+                }
+                const finalData = await this.finalAPI(user);
+                console.log(finalData)
+            }
+        }
+    }
 
+    async secondAPI() {
+        const url = "https://reqres.in/api/users/2";
+        const response = await fetch(url);
+        return await response.json();
+    }
+
+    async finalAPI(user) {
+        const url = "https://reqres.in/api/users";
+        const response = await fetch(url, {
+            method: 'post',
+            body: JSON.stringify(user)
+        });
+        return await response.json();
     }
 
     render() {
         return (
             <div>
                 <h2>Project - Page</h2>
+                <button onClick={() => this.firstAPI()}>API Call</button>
             </div>
         );
     }
 }
 
-function mapStateToProps(state) {
-    console.log(state)
-    return {
-        products: state.taskReducer.products
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(listProducts, dispatch)
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsPage);
+export default ProjectsPage;

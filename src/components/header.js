@@ -19,6 +19,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
+
 const theme = createMuiTheme();
 
 class HeaderComponent extends Component {
@@ -101,7 +102,12 @@ class HeaderComponent extends Component {
                     })}>
                     <div className={classes.drawerHeader} />
                     {this.props.children}
+
                 </main>
+                <div>
+
+                </div>
+
             </div>
         );
     }
@@ -165,4 +171,5 @@ const styles = theme => ({
     }
 })
 
-export default withStyles(styles(theme))(HeaderComponent);;
+
+export default withStyles(styles(theme))(HeaderComponent);

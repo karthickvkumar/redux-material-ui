@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker, KeyboardTimePicker } from '@material-ui/pickers';
 
-import * as addTask from '../redux/actions/task-action';
+import * as taskAction from '../redux/actions/task-action';
 
 const theme = createMuiTheme();
 
@@ -101,18 +101,15 @@ class TimeLogComponent extends Component {
                         </form>
                     </Paper>
                     <Paper elevation={3}>
-                        {
-                            taskList.map((task, index) => {
-                                return (
-                                    <div key={index}>
-                                        <span>{task.name}</span>
-                                        <span>{task.description}</span>
-                                        <span>{task.duration}</span>
-                                        <span>{task.date}</span>
-                                    </div>
-                                )
-                            })
-                        }
+                        <ul>
+                            {
+                                this.props.todoListFromStore.map((todo, index) => {
+                                    return (
+                                        <li key={index}>{todo}</li>
+                                    )
+                                })
+                            }
+                        </ul>
                     </Paper>
                 </Grid>
             </div >
@@ -137,17 +134,18 @@ const styles = (theme) => ({
     }
 });
 
+
 function mapStateToProps(state) {
-    console.log(state)
     return {
-        taskList: state.taskReducer.tasks
+        todoListFromStore: state.taskReducer.todoList
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(addTask, dispatch)
+        actions: bindActionCreators(taskAction, dispatch)
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles(theme))(TimeLogComponent));

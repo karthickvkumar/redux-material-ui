@@ -17,7 +17,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/" exact component={LoginPage} />
-            <Route path="/home" exact render={() => {
+            <Route path="/home" render={() => {
               return (
                 <Suspense fallback={<h2>Loading...</h2>}>
                   <HomePage></HomePage>
